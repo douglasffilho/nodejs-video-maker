@@ -5,5 +5,11 @@
   "main": "index.js",
   "repository": "git@github.com:douglasffilho/nodejs-video-maker.git",
   "author": "Douglas Fernandes <douglasf.filho@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "scripts": {
+    "make-video": "node index.js"
+  },
+  "dependencies": {
+    "readline-sync": "^1.4.10"
+  }
 }
