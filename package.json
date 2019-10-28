@@ -1,0 +1,9 @@
+{
+  "name": "nodejs-video-maker",
+  "version": "1.0.0",
+  "description": "A test video maker",
+  "main": "index.js",
+  "repository": "git@github.com:douglasffilho/nodejs-video-maker.git",
+  "author": "Douglas Fernandes <douglasf.filho@gmail.com>",
+  "license": "MIT"
+}
