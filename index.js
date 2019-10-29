@@ -1,11 +1,13 @@
 const UserInputService = require('./services/UserInputService.js');
+const RobotsService = require('./services/RobotsService.js');
 
-const start = () => {
+const start = async () => {
     const content = {};
+
     content.searchTerm = UserInputService.askUserForSearchTerm();
     content.prefix = UserInputService.askUserForPrefix();
 
-    console.log(content);
+    await RobotsService.textRobotBiBop(content);
 }
 
 start();
