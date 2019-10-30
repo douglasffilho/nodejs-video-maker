@@ -1,5 +1,6 @@
 const AlgorithmiaService = require('../AlgorithmiaService.js');
 const TextUtils = require('../../utils/TextUtils.js');
+const WatsonNluService = require('../WatsonNluService.js');
 
 const log = message => {
     console.log(`TextRobot::Bi... Bop! ${message}`);
@@ -27,13 +28,16 @@ const sanitizeContent = async content => {
 const createSentencesFromContent = async content => {
     log('Creating sentences from content');
     const sentences = await TextUtils.createSentencesFromText(content.sourceContent.sanitized);
-    content.sentences = sentences.map(sentence => {
-        return {
+    const limitedSentences = await TextUtils.limitMaximumSentences(sentences);
+    content.sentences = [];
+    for (sentence of limitedSentences) {
+        const keywords = await WatsonNluService.fetchKeywordsFromSentence(sentence);
+        content.sentences.push({
             text: sentence,
-            keywords: [],
+            keywords: keywords,
             images: []
-        };
-    });
+        });
+    };
 }
 
 module.exports = {
