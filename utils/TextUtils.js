@@ -1,4 +1,5 @@
 const sentenceBoundaryDetection = require('sbd');
+const MAXIMUM_SENTENCES = 7;
 
 module.exports = {
 
@@ -24,6 +25,10 @@ module.exports = {
 
     createSentencesFromText: async text => {
         return sentenceBoundaryDetection.sentences(text);
+    },
+
+    limitMaximumSentences: async sentences => {
+        return sentences.slice(0, MAXIMUM_SENTENCES);
     }
 
 };

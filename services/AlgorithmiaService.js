@@ -1,11 +1,12 @@
 const algorithmia = require('algorithmia');
-const algorithmiaApiKey = require('../credentials/algorithmia.json').apiKey;
+const { apikey } = require('../credentials/algorithmia.json');
+const { url } = require('../credentials/algorithmia.json');
 
 module.exports = {
 
     getWikipediaContent: async searchTerm => {
-        const authenticatedAlgorithmia = algorithmia(algorithmiaApiKey);
-        const wikipediaAlgorithm = authenticatedAlgorithmia.algo("web/WikipediaParser/0.1.2");
+        const authenticatedAlgorithmia = algorithmia(apikey);
+        const wikipediaAlgorithm = authenticatedAlgorithmia.algo(url);
         const wikipediaResponse = await wikipediaAlgorithm.pipe(searchTerm);
         
         if (wikipediaResponse.status === 200 && !wikipediaResponse.error) {
