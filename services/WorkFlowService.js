@@ -1,17 +1,13 @@
-const UserInputService = require('./UserInputService.js');
-
 const robots = [
+    require('./robots/InputRobot.js'),
     require('./robots/TextRobot.js')
 ]
 
 module.exports = {
 
-    execute: async content => {
-        content.searchTerm = UserInputService.askUserForSearchTerm();
-        content.prefix = UserInputService.askUserForPrefix();
-        
+    execute: async () => {
         for (const robot of robots) {
-            await robot.bibop(content);
+            await robot.bibop();
         };
     }
 

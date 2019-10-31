@@ -1,11 +1,10 @@
 const WorkFlowService = require('./services/WorkFlowService.js');
+const ContentUtils = require('./utils/ContentUtils.js');
 
 const start = async () => {
-    const content = {};
+    await ContentUtils.persist({});
 
-    await WorkFlowService.execute(content);
-    
-    console.log(JSON.stringify(content, null, 2));
+    await WorkFlowService.execute();
 }
 
 start();

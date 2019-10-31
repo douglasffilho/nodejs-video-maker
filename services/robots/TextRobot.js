@@ -1,5 +1,5 @@
 const AlgorithmiaService = require('../AlgorithmiaService.js');
-const TextUtils = require('../../utils/TextUtils.js');
+const ContentUtils = require('../../utils/ContentUtils.js');
 const WatsonNluService = require('../WatsonNluService.js');
 
 const log = message => {
@@ -16,19 +16,19 @@ const fetchSourceToContent = async content => {
 
 const sanitizeContent = async content => {
     log('Sanitizing content');
-    const textAsArray = await TextUtils.textToArray(content.sourceContent.original);
-    const textArrayWithoutBlankLines = await TextUtils.removeBlankLines(textAsArray);
-    const textArrayWithoutMarkdowns = await TextUtils.removeMarkdowns(textArrayWithoutBlankLines);
-    const textWithDatesWithoutParenthesis = await TextUtils.removeDatesInParenthesis(textArrayWithoutMarkdowns);
-    const sanitizedText = await TextUtils.arrayToText(textWithDatesWithoutParenthesis);
+    const textAsArray = await ContentUtils.textToArray(content.sourceContent.original);
+    const textArrayWithoutBlankLines = await ContentUtils.removeBlankLines(textAsArray);
+    const textArrayWithoutMarkdowns = await ContentUtils.removeMarkdowns(textArrayWithoutBlankLines);
+    const textWithDatesWithoutParenthesis = await ContentUtils.removeDatesInParenthesis(textArrayWithoutMarkdowns);
+    const sanitizedText = await ContentUtils.arrayToText(textWithDatesWithoutParenthesis);
     
     content.sourceContent.sanitized = sanitizedText;
 }
 
 const createSentencesFromContent = async content => {
     log('Creating sentences from content');
-    const sentences = await TextUtils.createSentencesFromText(content.sourceContent.sanitized);
-    const limitedSentences = await TextUtils.limitMaximumSentences(sentences);
+    const sentences = await ContentUtils.createSentencesFromText(content.sourceContent.sanitized);
+    const limitedSentences = await ContentUtils.limitMaximumSentences(sentences);
     content.sentences = [];
     for (sentence of limitedSentences) {
         const keywords = await WatsonNluService.fetchKeywordsFromSentence(sentence);
@@ -42,12 +42,16 @@ const createSentencesFromContent = async content => {
 
 module.exports = {
 
-    bibop: async content => {
+    bibop: async () => {
         log('Working... Bip!');
+
+        const content = await ContentUtils.load();
 
         await fetchSourceToContent(content);
         await sanitizeContent(content);
         await createSentencesFromContent(content);
+
+        await ContentUtils.persist(content);
     }
 
 };
