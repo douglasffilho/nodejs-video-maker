@@ -1,3 +1,4 @@
+'use strict';
 const { apikey } = require('../credentials/watson-nlu.json');
 const { url } = require('../credentials/watson-nlu.json');
 const NaturalLanguageUnderstandingV1 = require('ibm-watson/natural-language-understanding/v1');

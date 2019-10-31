@@ -1,3 +1,4 @@
+'use strict';
 const algorithmia = require('algorithmia');
 const { apikey } = require('../credentials/algorithmia.json');
 const { url } = require('../credentials/algorithmia.json');

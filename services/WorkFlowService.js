@@ -1,6 +1,10 @@
+'use strict';
+const InputRobot = require('./robots/InputRobot.js');
+const TextRobot = require('./robots/TextRobot.js');
+
 const robots = [
-    require('./robots/InputRobot.js'),
-    require('./robots/TextRobot.js')
+    new InputRobot(),
+    new TextRobot()
 ]
 
 module.exports = {
