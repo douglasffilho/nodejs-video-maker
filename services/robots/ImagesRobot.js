@@ -3,11 +3,13 @@ const Robot = require('./Robot.js');
 const { apikey } = require('../../credentials/serp-api.json');
 const GSR = require('google-search-results-nodejs');
 const Constants = require('../../utils/Constants.json');
+const ImageDownloader = require('image-downloader');
 
 class ImagesRobot extends Robot {
 
     constructor() {
         super('ImagesRobot');
+        this.downloadedImages = [];
     }
 
     fetchSearchImagesResults(searchQuery) {
@@ -43,12 +45,35 @@ class ImagesRobot extends Robot {
         });
     }
 
+    async downloadImage(imageReference) {
+        if (this.downloadedImages.includes(imageReference)) {
+            throw new Error(`Image ${imageReference} already downloaded`);
+        } else {
+            const downloadOptions = {
+                url: imageReference,
+                dest: Constants.CONTENT_FOLDER
+            };
+            await ImageDownloader.image(downloadOptions);
+            this.log(`Downloaded image: ${imageReference}`);
+            this.downloadedImages.push(imageReference);
+        }
+    }
+
     async execute(content) {
         for (const sentence of content.sentences) {
             try {
                 const query = `${content.searchTerm} ${sentence.keywords[0]}`
                 sentence.images = await this.fetchSearchImagesResults(query);
                 sentence.googleSearchQuery = query;
+                for (const image of sentence.images) {
+                    try {
+                        await this.downloadImage(image);
+                        break;
+                    } catch (error) {
+                        this.log(error);
+                    }
+                }
+
             } catch (error) {
                 this.log(error);
             }

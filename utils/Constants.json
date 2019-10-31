@@ -1,5 +1,12 @@
 {
     "CONTENT_FILE": "./content.json",
-    "CONTENT_MAX_SENTENCES": 7,
-    "CONTENT_SENTENCE_MAX_IMAGES": 3
+    "CONTENT_MAX_SENTENCES": 10,
+    "CONTENT_SENTENCE_MAX_IMAGES": 3,
+    "CONTENT_FOLDER": "./content",
+    "KEYWORD_BLACKLIST": [
+        "Michael Joseph Jackson",
+        "Jackson's contributions",
+        "personal life",
+        "music videos"
+    ]
 }

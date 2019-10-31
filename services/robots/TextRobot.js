@@ -3,6 +3,7 @@ const Robot = require('./Robot.js');
 const AlgorithmiaService = require('../AlgorithmiaService.js');
 const ContentUtils = require('../../utils/ContentUtils.js');
 const WatsonNluService = require('../WatsonNluService.js');
+const Constants = require('../../utils/Constants.json');
 
 class TextRobot extends Robot {
 
@@ -36,9 +37,12 @@ class TextRobot extends Robot {
         content.sentences = [];
         for (const sentence of limitedSentences) {
             const keywords = await WatsonNluService.fetchKeywordsFromSentence(sentence);
+            const filteredKeywords = keywords.filter(
+                keyword => !Constants.KEYWORD_BLACKLIST.includes(keyword)
+            );
             content.sentences.push({
                 text: sentence,
-                keywords: keywords,
+                keywords: filteredKeywords,
                 images: [],
                 googleSearchQuery: ''
             });
