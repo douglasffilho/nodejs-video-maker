@@ -2,3 +2,5 @@ node_modules/
 yarn.lock
 credentials/*.json
 content.json
+content/*
+!content/README.md

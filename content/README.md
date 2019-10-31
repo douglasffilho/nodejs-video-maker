@@ -1,0 +1,2 @@
+# Content folder
+## stores images
