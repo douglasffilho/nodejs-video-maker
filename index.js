@@ -1,3 +1,4 @@
+'use strict';
 const WorkFlowService = require('./services/WorkFlowService.js');
 const ContentUtils = require('./utils/ContentUtils.js');
 

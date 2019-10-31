@@ -1,3 +1,4 @@
+'use strict';
 const sentenceBoundaryDetection = require('sbd');
 const fs = require('fs');
 
