@@ -1,0 +1,5 @@
+{
+    "CONTENT_FILE": "./content.json",
+    "CONTENT_MAX_SENTENCES": 7,
+    "CONTENT_SENTENCE_MAX_IMAGES": 3
+}

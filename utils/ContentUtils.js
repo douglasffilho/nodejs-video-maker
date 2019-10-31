@@ -1,9 +1,7 @@
 'use strict';
+const Constants = require('./Constants.json');
 const sentenceBoundaryDetection = require('sbd');
 const fs = require('fs');
-
-const MAXIMUM_SENTENCES = 7;
-const CONTENT_FILE = './content.json';
 
 module.exports = {
 
@@ -32,17 +30,21 @@ module.exports = {
     },
 
     limitMaximumSentences: async sentences => {
-        return sentences.slice(0, MAXIMUM_SENTENCES);
+        return sentences.slice(0, Constants.CONTENT_MAX_SENTENCES);
     },
 
     persist: async content => {
         const contentAsString = JSON.stringify(content, null, 2);
-        return fs.writeFileSync(CONTENT_FILE, contentAsString);
+        return fs.writeFileSync(Constants.CONTENT_FILE, contentAsString);
     },
 
     load: async () => {
-        const fileBuffer = fs.readFileSync(CONTENT_FILE, 'utf-8');
-        return JSON.parse(fileBuffer);
+        try {
+            const fileBuffer = fs.readFileSync(Constants.CONTENT_FILE, 'utf-8');
+            return JSON.parse(fileBuffer);
+        } catch (error) {
+            return {};
+        }
     }
 
 };
