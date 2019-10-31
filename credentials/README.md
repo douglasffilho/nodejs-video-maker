@@ -10,6 +10,8 @@ file: algorithmia.json
 }
 ```
 
+## Watson
+
 file: watson-nlu.json
 ```json
 {
@@ -19,6 +21,15 @@ file: watson-nlu.json
     "iam_role_crn": "crn:v1:bluemix:public:iam::::serviceRole:Manager",
     "iam_serviceid_crn": "crn:v1:bluemix:public:iam-identity::IAM-ID::serviceid:ServiceId-ID",
     "url": "https://gateway-wdc.watsonplatform.net/natural-language-understanding/api"
+}
+```
+
+## Serp API (Google Search API)
+
+file: serp-api.json
+```json
+{
+    "apikey": "API KEY"
 }
 ```
 

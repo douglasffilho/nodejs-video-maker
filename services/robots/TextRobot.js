@@ -39,7 +39,8 @@ class TextRobot extends Robot {
             content.sentences.push({
                 text: sentence,
                 keywords: keywords,
-                images: []
+                images: [],
+                googleSearchQuery: ''
             });
         };
     }
